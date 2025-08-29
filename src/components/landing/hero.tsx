@@ -20,7 +20,7 @@ export function Hero() {
           <h1 className="text-4xl md:text-6xl font-headline font-bold tracking-tight text-primary">
             Find Your Daily Dose of Joy
           </h1>
-          <p className="text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-white max-w-2xl mx-auto">
             Life's too short for stress. Giggle Garden is your personal oasis of humor, designed to lift your spirits and brighten your day, one laugh at a time.
           </p>
           <div>
