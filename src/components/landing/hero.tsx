@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/components/auth-provider';
@@ -23,14 +25,13 @@ export function Hero() {
     <section className="relative w-full h-[60vh] md:h-[70vh] flex items-center justify-center text-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://picsum.photos/1920/1080"
+          src="/image.png"
           alt="A garden of laughter"
-          data-ai-hint="joyful nature"
           fill
           priority
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-background/60 backdrop-blur-sm"></div>
+        <div className="absolute inset-0 bg-background/90 backdrop-blur-sm"></div>
       </div>
       <div className="relative z-10 container px-4 md:px-6">
         <div className="max-w-3xl mx-auto space-y-6">
