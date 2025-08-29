@@ -35,29 +35,22 @@ export async function fetchInitialJoke(): Promise<GenerateJokeOutput | null> {
   }
 }
 
-export async function fetchNextJokeAndGenerateNewOne(): Promise<GenerateJokeOutput | null> {
+export async function fetchNextJokeAndGenerateNewOne(userEmail: string | null): Promise<GenerateJokeOutput | null> {
     await initFirebaseAdmin();
     const db = getFirestore();
-    const jokesCollection = db.collection('jokes');
     
-    // Start generating a new joke in the background (don't await)
-    generateJoke({}).then(newJoke => {
-        jokesCollection.add(newJoke);
-    }).catch(error => {
-        console.error("Failed to generate new joke:", error);
-    });
+    // Generate a new joke
+    const newJoke = await generateJoke({});
 
-    const snapshot = await jokesCollection.limit(1).get();
-
-    if (snapshot.empty) {
-        return null; // Should be handled by client, maybe show a loading/error state
+    // If we have a user email, store it in their personal collection
+    if (userEmail) {
+        const userJokesCollection = db.collection(userEmail);
+        await userJokesCollection.add(newJoke);
+    } else {
+        // Fallback to the general pool if for some reason email is not available
+        const jokesCollection = db.collection('jokes');
+        await jokesCollection.add(newJoke);
     }
-    
-    const jokeDoc = snapshot.docs[0];
-    const jokeData = jokeDoc.data() as GenerateJokeOutput;
 
-    // Delete the joke that was just served
-    await jokeDoc.ref.delete();
-
-    return jokeData;
+    return newJoke;
 }

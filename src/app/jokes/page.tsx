@@ -48,8 +48,6 @@ export default function JokesPage() {
         const initialJoke = await fetchInitialJoke();
         if (initialJoke) {
           setJokes([initialJoke]);
-          // pre-load next joke
-          fetchNextJokeAndGenerateNewOne();
         }
         setIsLoading(false);
       };
@@ -66,7 +64,7 @@ export default function JokesPage() {
           // Prevent multiple fetches
           if(!isLoading) {
               setIsLoading(true);
-              const nextJoke = await fetchNextJokeAndGenerateNewOne();
+              const nextJoke = await fetchNextJokeAndGenerateNewOne(user?.email || null);
               if (nextJoke) {
                   setJokes(prev => [...prev, nextJoke]);
               }
@@ -80,7 +78,7 @@ export default function JokesPage() {
     const container = containerRef.current;
     container?.addEventListener('scroll', handleScroll);
     return () => container?.removeEventListener('scroll', handleScroll);
-  }, [isLoading]);
+  }, [isLoading, user]);
 
 
   if (authLoading || !user) {
@@ -105,8 +103,13 @@ export default function JokesPage() {
              <JokeSlide {...joke} />
           </div>
         ))}
-        {isLoading && (
+        {isLoading && jokes.length > 0 && (
             <div className="h-screen w-screen">
+                <LoadingSlide />
+            </div>
+        )}
+        {isLoading && jokes.length === 0 && (
+             <div className="h-screen w-screen">
                 <LoadingSlide />
             </div>
         )}
