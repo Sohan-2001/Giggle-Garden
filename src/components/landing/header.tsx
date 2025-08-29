@@ -13,7 +13,7 @@ export function Header() {
           </span>
         </Link>
         <nav>
-          <Button className="rounded-full border border-accent/20 bg-accent/10 text-accent-foreground shadow-[2px_2px_4px_rgba(0,0,0,0.4),-2px_-2px_4px_rgba(255,255,255,0.2)] backdrop-blur-sm hover:bg-accent/20 transition-all duration-200">Get Started</Button>
+          <Button className="rounded-full border border-accent/20 bg-accent/90 text-accent-foreground shadow-[2px_2px_4px_rgba(0,0,0,0.4),-2px_-2px_4px_rgba(255,255,255,0.2)] backdrop-blur-sm hover:bg-accent transition-all duration-200">Get Started</Button>
         </nav>
       </div>
     </header>
