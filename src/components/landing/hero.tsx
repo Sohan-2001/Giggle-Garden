@@ -1,7 +1,24 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/components/auth-provider';
+import { useRouter } from 'next/navigation';
 
 export function Hero() {
+  const { user, signInWithGoogle } = useAuth();
+  const router = useRouter();
+
+  const handleStartLaughing = async () => {
+    if (user) {
+      router.push('/jokes');
+    } else {
+      try {
+        await signInWithGoogle();
+        router.push('/jokes');
+      } catch (error) {
+        console.error("Authentication failed:", error);
+      }
+    }
+  };
   return (
     <section className="relative w-full h-[60vh] md:h-[70vh] flex items-center justify-center text-center overflow-hidden">
       <div className="absolute inset-0 z-0">
@@ -24,7 +41,9 @@ export function Hero() {
             Life's too short for stress. Giggle Garden is your personal oasis of humor, designed to lift your spirits and brighten your day, one laugh at a time.
           </p>
           <div>
-            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 transition-transform hover:scale-105 duration-300">
+            <Button size="lg" 
+              onClick={handleStartLaughing}
+              className="bg-accent text-accent-foreground hover:bg-accent/90 transition-transform hover:scale-105 duration-300">
               Start Laughing Now
             </Button>
           </div>
