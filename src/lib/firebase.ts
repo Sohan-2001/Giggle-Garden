@@ -1,13 +1,12 @@
 import { initializeApp } from 'firebase/app';
 
 const firebaseConfig = {
-  "projectId": "giggle-garden-cwqmt",
-  "appId": "1:648582438278:web:a727b59add98f90f406007",
-  "storageBucket": "giggle-garden-cwqmt.firebasestorage.app",
-  "apiKey": "AIzaSyBtFhlHg08Gu3z9RoGUZtKtKpDqPb2pDXc",
-  "authDomain": "giggle-garden-cwqmt.firebaseapp.com",
-  "measurementId": "",
-  "messagingSenderId": "648582438278"
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
 };
 
 // Initialize Firebase
